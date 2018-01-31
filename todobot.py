@@ -107,7 +107,6 @@ def main():
     db.setup()
     last_update_id = 0
     while True:
-        print("send requests")
         updates = get_updates(last_update_id)
         if len(updates["result"]) > 0:
             last_update_id = get_last_update_id(updates) + 1
