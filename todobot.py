@@ -17,7 +17,8 @@ def get_url(url):
 
 def get_json_from_url(url):
     content = get_url(url)
-    js = json.loads(content)
+    if len(content) > 0:
+        js = json.loads(content)
     return js
 
 
@@ -78,10 +79,11 @@ def handle_updates(updates):
             send_message(message, chat)
         elif text == "/start":
             send_message(
-                "Welcome to your personal To Do list. Send any text to me and I'll store it as an item. Send /show to show your current to-do list, send /done to remove items",
+                "Welcome to your personal To Do list. Send any text to me and I'll store it as an item. "
+                "Send /show to show your current to-do list, send /done to remove items",
                 chat)
         elif text.startswith("/"):
-            continue
+            send_message("Command not recognized. Please try again.", chat)
         elif text in items:
             db.delete_item(text, chat)
             items = db.get_items(chat)
